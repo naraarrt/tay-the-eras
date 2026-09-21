@@ -9,19 +9,19 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,400;1,9..144,500;1,9..144,600&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --black:#0a0a0a;
-    --black-2:#131313;
-    --off:#f4f0e8;
-    --grey:#918b81;
-    --grey-dim:#57534c;
-    --silver:#c9c5be;
-    --line: rgba(244,240,232,0.15);
+    --black:#21113f;
+    --black-2:#301b58;
+    --off:#fff9f5;
+    --grey:#c7ace5;
+    --grey-dim:#9b76c9;
+    --silver:#f2ddf2;
+    --line:rgba(255,249,245,0.25);
 
-    --purple:#8a5cf6;
-    --red:#e5432c;
-    --gold:#f0b429;
-    --rose:#ff5b8e;
-    --blue:#4d7cff;
+    --purple:#744bc4;
+    --red:#ff7fbe;
+    --gold:#d9f16a;
+    --rose:#f67db7;
+    --blue:#c9f05e;
 
     box-sizing:border-box;
     padding-top:env(safe-area-inset-top,0px);
@@ -69,9 +69,9 @@
   .hero-bg{
     position:absolute; inset:0; z-index:0;
     background:
-      radial-gradient(60% 50% at 18% 8%, rgba(138,92,246,0.32), transparent 60%),
-      radial-gradient(55% 45% at 88% 14%, rgba(229,67,44,0.26), transparent 60%),
-      radial-gradient(70% 55% at 50% 105%, rgba(77,124,255,0.2), transparent 60%),
+      radial-gradient(60% 50% at 18% 8%, rgba(217,241,106,0.42), transparent 60%),
+      radial-gradient(55% 45% at 88% 14%, rgba(246,125,183,0.48), transparent 60%),
+      radial-gradient(70% 55% at 50% 105%, rgba(116,75,196,0.55), transparent 60%),
       var(--black);
   }
   .hero-content{position:relative; z-index:2;}
@@ -151,8 +151,8 @@
   .era-name{font-family:'Fraunces',serif; font-weight:700; font-size:clamp(19px,2.5vw,27px); line-height:1.02; color:var(--off);}
   .era-desc{font-size:12.5px; line-height:1.4; color:rgba(244,240,232,0.82); max-height:0; opacity:0; transition:all .35s ease; overflow:hidden;}
   .era-card:hover .era-desc{max-height:120px; opacity:1; margin-top:8px;}
-  .tint-debut{background:#77726a;} .tint-wonder{background:#6c3fd6;} .tint-renaissance{background:#c62a17;}
-  .tint-golden{background:#e8a91b;} .tint-softlaunch{background:#ff4c85;} .tint-midnight{background:#25397e;} .tint-23{background:#9a968e;}
+  .tint-debut{background:#d9f16a;} .tint-wonder{background:#744bc4;} .tint-renaissance{background:#ff7fbe;}
+  .tint-golden{background:#d9f16a;} .tint-softlaunch{background:#f67db7;} .tint-midnight{background:#573590;} .tint-23{background:#fff9f5;}
 
   /* ============ DRESS CODE ============ */
   .dress-grid{display:grid; grid-template-columns:1fr; gap:14px; margin-top:36px;}
