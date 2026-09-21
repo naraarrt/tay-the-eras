@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>TAY — THE ERAS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,400;1,9..144,500;1,9..144,600&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --black:#0a0a0a;
+    --black-2:#131313;
+    --off:#f4f0e8;
+    --grey:#918b81;
+    --grey-dim:#57534c;
+    --silver:#c9c5be;
+    --line: rgba(244,240,232,0.15);
+
+    --purple:#8a5cf6;
+    --red:#e5432c;
+    --gold:#f0b429;
+    --rose:#ff5b8e;
+    --blue:#4d7cff;
+
+    box-sizing:border-box;
+    padding-top:env(safe-area-inset-top,0px);
+    padding-bottom:env(safe-area-inset-bottom,0px);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;scroll-padding-top:env(safe-area-inset-top,0px);}
+  body{
+    margin:0; background:var(--black); color:var(--off);
+    font-family:'Space Grotesk',sans-serif; -webkit-font-smoothing:antialiased; overflow-x:hidden;
+  }
+  ::selection{background:var(--rose); color:var(--black);}
+  h1,h2,h3,.serif{font-family:'Fraunces',serif;}
+  a{color:inherit;}
+  img{max-width:100%;}
+
+  .grain{
+    position:fixed; inset:0; z-index:999; pointer-events:none; opacity:0.05; mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .scanline{
+    position:fixed; inset:0; z-index:998; pointer-events:none; opacity:0.3;
+    background:repeating-linear-gradient(180deg, rgba(255,255,255,0.02) 0px, rgba(255,255,255,0.02) 1px, transparent 1px, transparent 3px);
+  }
+
+  .wrap{max-width:1180px; margin:0 auto; padding:0 22px;}
+  @media(min-width:900px){ .wrap{padding:0 56px;} }
+
+  /* ============ NAV ============ */
+  header.bar{
+    position:fixed; top:0; left:0; right:0; z-index:500;
+    padding-top:calc(env(safe-area-inset-top,0px) + 18px); padding-bottom:18px;
+    display:flex; align-items:center; justify-content:space-between;
+    padding-left:22px; padding-right:22px; mix-blend-mode:difference; pointer-events:none;
+  }
+  header.bar .wordmark{font-family:'Fraunces',serif; font-style:italic; font-weight:600; font-size:17px;}
+  header.bar .tag{font-size:11px; letter-spacing:0.16em; text-transform:uppercase; opacity:0.85;}
+
+  /* ============ HERO ============ */
+  .hero{
+    min-height:96svh; position:relative; display:flex; flex-direction:column; justify-content:space-between;
+    padding:100px 22px 40px; overflow:hidden;
+  }
+  @media(min-width:900px){ .hero{padding:112px 56px 48px;} }
+  .hero-bg{
+    position:absolute; inset:0; z-index:0;
+    background:
+      radial-gradient(60% 50% at 18% 8%, rgba(138,92,246,0.32), transparent 60%),
+      radial-gradient(55% 45% at 88% 14%, rgba(229,67,44,0.26), transparent 60%),
+      radial-gradient(70% 55% at 50% 105%, rgba(77,124,255,0.2), transparent 60%),
+      var(--black);
+  }
+  .hero-content{position:relative; z-index:2;}
+  .kicker-row{display:flex; justify-content:space-between; align-items:flex-start; font-size:11px; letter-spacing:0.18em; text-transform:uppercase; color:var(--silver); gap:14px; flex-wrap:wrap;}
+  .kicker-row .pill{border:1px solid var(--line); border-radius:100px; padding:6px 14px; display:flex; align-items:center; gap:8px;}
+  .pill .dot{width:6px;height:6px;border-radius:50%;background:var(--rose); box-shadow:0 0 8px var(--rose); animation:pulse 1.8s ease-in-out infinite;}
+  @keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.3;}}
+
+  .hero-title{margin:24px 0 0; line-height:0.86; font-weight:600; font-style:italic; font-size:clamp(54px, 14.5vw, 160px); letter-spacing:-0.01em;}
+  .hero-title small{
+    display:block; font-family:'Space Grotesk',sans-serif; font-style:normal; font-weight:700;
+    font-size:clamp(19px, 4.4vw, 44px); text-transform:uppercase; letter-spacing:0.13em; margin-top:10px;
+    background:linear-gradient(90deg,var(--purple),var(--rose) 28%,var(--gold) 52%,var(--blue) 76%,var(--red));
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .hero-sub{margin-top:26px; max-width:540px; font-size:clamp(16px,2.3vw,19px); opacity:0.92; line-height:1.55;}
+  .hero-sub .line2{display:block; color:var(--silver); font-style:italic; font-family:'Fraunces',serif; font-size:1.05em; margin-top:6px;}
+
+  .hero-actions{position:relative; z-index:2; display:flex; gap:12px; flex-wrap:wrap; margin-top:30px;}
+  .btn{
+    appearance:none; border:none; cursor:pointer; text-decoration:none; display:inline-flex; align-items:center; gap:8px;
+    font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:13.5px; letter-spacing:0.03em;
+    padding:14px 26px; border-radius:100px; background:var(--off); color:var(--black);
+    transition:transform .25s ease, box-shadow .25s ease;
+  }
+  .btn:hover{transform:translateY(-2px); box-shadow:0 8px 24px rgba(255,255,255,0.15);}
+  .btn:focus-visible{outline:2px solid var(--rose); outline-offset:3px;}
+  .btn.ghost{background:transparent; color:var(--off); border:1px solid var(--line);}
+  .btn.pink{background:var(--rose); color:#1a0410;}
+
+  .hero-bottom{position:relative; z-index:2; display:flex; flex-wrap:wrap; gap:14px 28px; align-items:flex-end; justify-content:space-between; margin-top:50px; padding-top:20px; border-top:1px solid var(--line); font-size:12px; letter-spacing:0.08em; text-transform:uppercase; color:var(--silver);}
+  .hero-date{font-family:'Fraunces',serif; font-weight:600; font-size:clamp(24px,4.6vw,36px); color:var(--off); letter-spacing:0; text-transform:none;}
+  .hero-scroll{display:flex; align-items:center; gap:10px; opacity:0.75;}
+  .hero-scroll .stick{width:1px; height:32px; background:linear-gradient(var(--off),transparent); animation:drop 1.8s ease-in-out infinite;}
+  @keyframes drop{0%{transform:scaleY(0); transform-origin:top;}50%{transform:scaleY(1); transform-origin:top;}50.1%{transform-origin:bottom;}100%{transform:scaleY(0); transform-origin:bottom;}}
+
+  /* ============ MARQUEE ============ */
+  .marquee{border-top:1px solid var(--line); border-bottom:1px solid var(--line); background:var(--black-2); overflow:hidden; white-space:nowrap; padding:15px 0;}
+  .marquee-track{display:inline-block; animation:scrollLeft 26s linear infinite; will-change:transform;}
+  .marquee-track span{font-family:'Fraunces',serif; font-style:italic; font-size:15px; letter-spacing:0.02em; padding:0 22px; color:var(--silver);}
+  .marquee-track span.hi{color:var(--off); font-style:normal; font-weight:600; text-transform:uppercase; letter-spacing:0.14em; font-family:'Space Grotesk',sans-serif; font-size:12px;}
+  @keyframes scrollLeft{from{transform:translateX(0);} to{transform:translateX(-50%);}}
+
+  /* ============ SECTION HEAD ============ */
+  .section-head{margin-bottom:16px;}
+  .section-eyebrow{font-size:11px; letter-spacing:0.16em; text-transform:uppercase; color:var(--grey); display:block; margin-bottom:10px;}
+  .section-title{font-size:clamp(28px,5vw,50px); font-weight:500; margin:0; letter-spacing:-0.01em;}
+  section{padding:96px 0; border-bottom:1px solid var(--line); position:relative;}
+  @media(max-width:640px){ section{padding:68px 0;} }
+
+  /* ============ LETTER + COLLAGE ============ */
+  .letter{max-width:680px;}
+  .letter p{font-size:clamp(16.5px,2.1vw,20px); line-height:1.75; color:#e7e2d8; margin:0 0 18px;}
+  .letter .drop{font-family:'Fraunces',serif; font-style:italic; font-weight:600; font-size:clamp(23px,3.4vw,28px); color:var(--off);}
+  .letter .sign{margin-top:30px; font-family:'Fraunces',serif; font-style:italic; font-size:22px; color:var(--rose);}
+
+  .collage{display:grid; grid-template-columns:repeat(3,1fr); gap:16px 20px; margin-top:56px; max-width:760px;}
+  @media(max-width:640px){ .collage{grid-template-columns:repeat(2,1fr); gap:14px;} }
+  .polaroid{background:var(--off); padding:10px 10px 30px; border-radius:2px; box-shadow:0 16px 30px rgba(0,0,0,0.45); transition:transform .3s ease;}
+  .polaroid:nth-child(1){transform:rotate(-3deg);} .polaroid:nth-child(2){transform:rotate(2deg); margin-top:22px;}
+  .polaroid:nth-child(3){transform:rotate(-1.5deg);} .polaroid:nth-child(4){transform:rotate(3deg); margin-top:-8px;}
+  .polaroid:nth-child(5){transform:rotate(-2deg); margin-top:14px;} .polaroid:nth-child(6){transform:rotate(1.5deg);}
+  .polaroid:hover{transform:rotate(0deg) scale(1.03); z-index:5;}
+  .polaroid img{display:block; width:100%; aspect-ratio:3/4; object-fit:cover; background:#333;}
+  .polaroid .cap{font-family:'Fraunces',serif; font-style:italic; color:#181510; font-size:12.5px; text-align:center; margin-top:8px;}
+
+  /* ============ ERAS GRID ============ */
+  .eras-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:16px; margin-top:40px;}
+  @media(min-width:760px){ .eras-grid{grid-template-columns:repeat(4,1fr);} }
+  .era-card{position:relative; aspect-ratio:3/4; border-radius:2px; overflow:hidden; border:1px solid var(--line); isolation:isolate;}
+  .era-photo{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0; transition:transform .6s cubic-bezier(.2,.8,.2,1);}
+  .era-card:hover .era-photo{transform:scale(1.07);}
+  .era-tint{position:absolute; inset:0; z-index:1; mix-blend-mode:color; opacity:0.9;}
+  .era-scrim{position:absolute; inset:0; z-index:2; background:linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.15) 45%, rgba(0,0,0,0.35) 100%);}
+  .era-content{position:relative; z-index:3; height:100%; display:flex; flex-direction:column; justify-content:space-between; padding:15px;}
+  .era-index{font-size:11px; letter-spacing:0.14em; color:rgba(244,240,232,0.75); font-weight:600;}
+  .era-name{font-family:'Fraunces',serif; font-weight:700; font-size:clamp(19px,2.5vw,27px); line-height:1.02; color:var(--off);}
+  .era-desc{font-size:12.5px; line-height:1.4; color:rgba(244,240,232,0.82); max-height:0; opacity:0; transition:all .35s ease; overflow:hidden;}
+  .era-card:hover .era-desc{max-height:120px; opacity:1; margin-top:8px;}
+  .tint-debut{background:#77726a;} .tint-wonder{background:#6c3fd6;} .tint-renaissance{background:#c62a17;}
+  .tint-golden{background:#e8a91b;} .tint-softlaunch{background:#ff4c85;} .tint-midnight{background:#25397e;} .tint-23{background:#9a968e;}
+
+  /* ============ DRESS CODE ============ */
+  .dress-grid{display:grid; grid-template-columns:1fr; gap:14px; margin-top:36px;}
+  @media(min-width:760px){ .dress-grid{grid-template-columns:1fr 1fr;} }
+  .dress-card{border:1px solid var(--line); padding:24px; border-radius:2px; background:linear-gradient(180deg, rgba(255,255,255,0.025), transparent);}
+  .dress-card h3{margin:0 0 10px; font-size:19px; font-weight:500; font-style:italic;}
+  .dress-card p{margin:0; color:var(--silver); font-size:14.5px; line-height:1.6;}
+  .chip{font-size:13px; padding:8px 16px; border:1px solid var(--line); border-radius:100px; color:var(--off); background:rgba(255,255,255,0.03); font-family:'Fraunces',serif; font-style:italic;}
+  .chips{display:flex; flex-wrap:wrap; gap:10px;}
+
+  .mood-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-top:26px;}
+  @media(max-width:640px){ .mood-grid{grid-template-columns:repeat(3,1fr);} }
+  .mood-tile{position:relative; aspect-ratio:1/1; overflow:hidden; border:1px dashed var(--line); border-radius:2px;}
+  .mood-tile img{width:100%; height:100%; object-fit:cover; display:block; opacity:0.85;}
+  .mood-tile .lbl{position:absolute; bottom:6px; left:8px; font-size:10px; letter-spacing:0.06em; text-transform:uppercase; color:rgba(244,240,232,0.7);}
+
+  /* ============ TICKET ============ */
+  .ticket{position:relative; display:grid; grid-template-columns:1fr; border:1px solid var(--line); background:var(--black-2); border-radius:3px; overflow:hidden; margin-top:40px;}
+  @media(min-width:760px){ .ticket{grid-template-columns:1fr 250px;} }
+  .ticket-main{padding:34px 28px;}
+  .ticket-stub{padding:28px; background:repeating-linear-gradient(155deg, rgba(255,255,255,0.03) 0 2px, transparent 2px 10px), var(--black); display:flex; flex-direction:column; justify-content:space-between; position:relative;}
+  @media(min-width:760px){
+    .ticket-stub{border-left:1px dashed var(--line);}
+    .ticket-stub::before,.ticket-stub::after{content:""; position:absolute; left:-10px; width:20px; height:20px; background:var(--black); border-radius:50%;}
+    .ticket-stub::before{top:-10px;} .ticket-stub::after{bottom:-10px;}
+  }
+  .ticket-eyebrow{font-size:11px; letter-spacing:0.18em; text-transform:uppercase; color:var(--grey); margin-bottom:10px;}
+  .ticket-event{font-family:'Fraunces',serif; font-style:italic; font-weight:600; font-size:clamp(24px,3.6vw,34px); margin:0 0 20px;}
+  .ticket-rows{display:grid; grid-template-columns:1fr 1fr; gap:20px;}
+  @media(max-width:520px){ .ticket-rows{grid-template-columns:1fr;} }
+  .row-label{font-size:11px; letter-spacing:0.12em; text-transform:uppercase; color:var(--grey); margin-bottom:4px;}
+  .row-val{font-size:17px; font-weight:500;}
+  .row-val.edit{color:var(--rose); font-style:italic; font-family:'Fraunces',serif;}
+  .ticket-stub .adm{font-size:11px; letter-spacing:0.16em; text-transform:uppercase; color:var(--grey);}
+  .ticket-stub .num{font-family:'Fraunces',serif; font-size:40px; font-weight:700; margin:10px 0; background:linear-gradient(90deg,var(--rose),var(--gold)); -webkit-background-clip:text; background-clip:text; color:transparent;}
+  .ticket-stub .barcode{margin-top:12px; height:32px; background:repeating-linear-gradient(90deg, var(--off) 0 2px, transparent 2px 5px, var(--off) 5px 6px, transparent 6px 9px); opacity:0.8;}
+  .cal-link{margin-top:18px; font-size:12.5px; text-decoration:underline; text-underline-offset:3px; color:var(--silver);}
+
+  .countdown{display:flex; gap:12px; flex-wrap:wrap; margin-top:36px;}
+  .cd-box{flex:1; min-width:76px; border:1px solid var(--line); border-radius:2px; padding:18px 8px; text-align:center; background:linear-gradient(180deg, rgba(255,255,255,0.03), transparent);}
+  .cd-box .n{font-family:'Fraunces',serif; font-weight:700; font-size:clamp(30px,4.6vw,48px); line-height:1;}
+  .cd-box .l{font-size:10px; letter-spacing:0.12em; text-transform:uppercase; color:var(--grey); margin-top:8px;}
+
+  /* ============ CHECKLIST ============ */
+  .checklist{max-width:560px; margin-top:36px; display:flex; flex-direction:column; gap:2px;}
+  .check-item{display:flex; align-items:center; gap:14px; padding:16px 4px; border-bottom:1px solid var(--line); cursor:pointer;}
+  .check-item .box{width:20px; height:20px; border:1px solid var(--silver); border-radius:50%; flex-shrink:0; position:relative; transition:all .2s ease;}
+  .check-item input{position:absolute; opacity:0; width:20px; height:20px; cursor:pointer; margin:0;}
+  .check-item input:checked ~ .box{background:var(--rose); border-color:var(--rose);}
+  .check-item input:checked ~ .box::after{content:"✓"; position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:12px; color:var(--black);}
+  .check-item .txt{font-size:15px; transition:all .2s ease;}
+  .check-item input:checked ~ .txt{color:var(--grey-dim); text-decoration:line-through;}
+  .check-item .n{font-family:'Fraunces',serif; font-style:italic; color:var(--grey); font-size:13px; width:18px;}
+
+  /* ============ RSVP ============ */
+  .rsvp-panel{margin-top:40px; border:1px solid var(--line); border-radius:3px; padding:36px 24px; background:radial-gradient(80% 60% at 100% 0%, rgba(138,92,246,0.12), transparent 60%), var(--black-2);}
+  @media(min-width:760px){ .rsvp-panel{padding:50px 54px;} }
+  .status-row{display:flex; gap:10px; flex-wrap:wrap; margin:22px 0 8px;}
+  .status-btn{
+    border:1px solid var(--line); background:transparent; color:var(--off); cursor:pointer;
+    font-family:'Space Grotesk',sans-serif; font-size:13.5px; font-weight:600; letter-spacing:0.02em;
+    padding:13px 22px; border-radius:100px; transition:all .2s ease;
+  }
+  .status-btn:hover{border-color:var(--silver);}
+  .status-btn.active{background:var(--off); color:var(--black); border-color:var(--off);}
+
+  form.rsvp{display:grid; grid-template-columns:1fr 1fr; gap:18px 20px; margin-top:24px;}
+  @media(max-width:640px){ form.rsvp{grid-template-columns:1fr;} }
+  .field{display:flex; flex-direction:column; gap:8px;}
+  .field.full{grid-column:1/-1;}
+  .field label{font-size:11px; letter-spacing:0.12em; text-transform:uppercase; color:var(--grey);}
+  .field input{background:transparent; border:none; border-bottom:1px solid var(--line); color:var(--off); font-family:'Space Grotesk',sans-serif; font-size:16px; padding:10px 2px; outline:none;}
+  .field input:focus{border-bottom-color:var(--rose);}
+  .rsvp-actions{grid-column:1/-1; display:flex; gap:16px; flex-wrap:wrap; margin-top:6px; align-items:center;}
+  .rsvp-note{font-size:12.5px; color:var(--grey);}
+  .rsvp-confirm{display:none; margin-top:18px; padding:16px 18px; border:1px solid var(--line); border-radius:2px; font-size:14px; color:var(--gold);}
+  .rsvp-confirm.show{display:block;}
+
+  .photo-strip{margin-top:44px; overflow:hidden; white-space:nowrap; padding:6px 0;}
+  .photo-strip-track{display:inline-flex; gap:14px; animation:scrollLeft 30s linear infinite;}
+  .photo-strip-track img{width:150px; height:190px; object-fit:cover; border-radius:2px; flex-shrink:0; opacity:0.85;}
+
+  /* ============ FOOTER ============ */
+  footer{padding:64px 0 calc(44px + env(safe-area-inset-bottom,0px));}
+  .footer-grid{display:grid; grid-template-columns:1fr; gap:28px;}
+  @media(min-width:760px){ .footer-grid{grid-template-columns:1.3fr 1fr 1fr;} }
+  footer .fwordmark{font-family:'Fraunces',serif; font-style:italic; font-weight:600; font-size:25px;}
+  footer .fdesc{color:var(--grey); font-size:13.5px; line-height:1.6; margin-top:10px; max-width:300px;}
+  footer h4{font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:var(--grey); margin:0 0 12px;}
+  footer ul{list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:8px; font-size:14px; color:var(--silver);}
+  .footer-bottom{margin-top:52px; padding-top:20px; border-top:1px solid var(--line); display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:var(--grey-dim);}
+
+  @media (prefers-reduced-motion: reduce){ *{animation:none !important; transition:none !important;} }
+</style>
+</head>
+<body>
+
+<div class="grain"></div>
+<div class="scanline"></div>
+
+<header class="bar">
+  <span class="wordmark">TAY</span>
+  <span class="tag">The Eras · 14.11.2026</span>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero" style="border-bottom:none; padding-bottom:0;">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="kicker-row">
+      <span class="pill"><span class="dot"></span> Ao vivo · uma noite só</span>
+      <span class="pill">Manaus, AM — Brasil</span>
+    </div>
+    <h1 class="hero-title">TAY<small>The Eras</small></h1>
+    <p class="hero-sub">23 years. Countless versions of me.<span class="line2">Every era has its own soundtrack.</span></p>
+    <div class="hero-actions">
+      <a class="btn" id="calBtn" href="#" target="_blank" rel="noopener">+ Salvar na agenda</a>
+      <a class="btn ghost" href="#rsvp">Confirmar presença</a>
+    </div>
+  </div>
+  <div class="hero-bottom">
+    <div>
+      <div class="hero-date">14 de novembro, 2026</div>
+      <div style="margin-top:6px;">Sábado · portões às 20h</div>
+    </div>
+    <div class="hero-scroll"><span class="stick"></span> role para o setlist</div>
+  </div>
+</section>
+
+<div class="marquee">
+  <div class="marquee-track">
+    <span class="hi">Escolha um álbum</span><span>✦</span><span class="hi">Vista a era</span><span>✦</span><span>14 de novembro de 2026</span><span>✦</span><span class="hi">Escolha um álbum</span><span>✦</span><span class="hi">Vista a era</span><span>✦</span><span>14 de novembro de 2026</span><span>✦</span>
+    <span class="hi">Escolha um álbum</span><span>✦</span><span class="hi">Vista a era</span><span>✦</span><span>14 de novembro de 2026</span><span>✦</span><span class="hi">Escolha um álbum</span><span>✦</span><span class="hi">Vista a era</span><span>✦</span><span>14 de novembro de 2026</span><span>✦</span>
+  </div>
+</div>
+
+<!-- ============ LETTER + COLLAGE ============ -->
+<section id="carta">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-eyebrow">01 / O conceito</span>
+      <h2 class="section-title">Antes de subir ao palco</h2>
+    </div>
+    <div class="letter">
+      <p><span class="drop">Nem toda festa</span> é só uma festa. Essa é uma turnê — a retrospectiva de vinte e três anos de TAY sendo, ao mesmo tempo, várias pessoas diferentes: a menina curiosa, a criativa inquieta, a profissional determinada, a apaixonada, a melhor amiga, a sonhadora acordada às 3h da manhã.</p>
+      <p>Cada era tem sua própria paleta, sua própria trilha sonora, seu próprio jeito de ser TAY. Juntas, elas formam o álbum completo — e é esse álbum que a gente abre para comemorar com vocês.</p>
+      <div class="sign">— com amor, a produção da turnê</div>
+    </div>
+
+    <div class="collage">
+      <figure class="polaroid"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 500'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop stop-color='%23d8d5cf'/%3E%3Cstop offset='1' stop-color='%2377726a'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='400' height='500' fill='url(%23g)'/%3E%3Cg fill='none' stroke='white' stroke-opacity='.55' stroke-width='6'%3E%3Ccircle cx='200' cy='230' r='58'/%3E%3Ccircle cx='200' cy='230' r='24'/%3E%3Crect x='112' y='162' width='176' height='136' rx='16'/%3E%3C/g%3E%3C/svg%3E" alt="Espaço para foto — substitua pela sua imagem"><figcaption class="cap">foto 01 — substitua</figcaption></figure>
+      <figure class="polaroid"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 500'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop stop-color='%23a184f2'/%3E%3Cstop offset='1' stop-color='%233d2270'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='400' height='500' fill='url(%23g)'/%3E%3Cg fill='none' stroke='white' stroke-opacity='.55' stroke-width='6'%3E%3Ccircle cx='200' cy='230' r='58'/%3E%3Ccircle cx='200' cy='230' r='24'/%3E%3Crect x='112' y='162' width='176' height='136' rx='16'/%3E%3C/g%3E%3C/svg%3E" alt="Espaço para foto — substitua pela sua imagem"><figcaption class="cap">foto 02 — substitua</figcaption></figure>
+      <figure class="polaroid"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 500'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop stop-color='%23ff9cbc'/%3E%3Cstop offset='1' stop-color='%2393123f'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='400' height='500' fill='url(%23g)'/%3E%3Cg fill='none' stroke='white' stroke-opacity='.55' stroke-width='6'%3E%3Ccircle cx='200' cy='230' r='58'/%3E%3Ccircle cx='200' cy='230' r='24'/%3E%3Crect x='112' y='162' width='176' height='136' rx='16'/%3E%3C/g%3E%3C/svg%3E" alt="Espaço para foto — substitua pela sua imagem"><figcaption class="cap">foto 03 — substitua</figcaption></figure>
+      <figure class="polaroid"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 500'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop stop-color='%23ffd76b'/%3E%3Cstop offset='1' stop-color='%238a5c07'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='400' height='500' fill='url(%23g)'/%3E%3Cg fill='none' stroke='white' stroke-opacity='.55' stroke-width='6'%3E%3Ccircle cx='200' cy='230' r='58'/%3E%3Ccircle cx='200' cy='230' r='24'/%3E%3Crect x='112' y='162' width='176' height='136' rx='16'/%3E%3C/g%3E%3C/svg%3E" alt="Espaço para foto — substitua pela sua imagem"><figcaption class="cap">foto 04 — substitua</figcaption></figure>
+      <figure class="polaroid"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 500'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop stop-color='%235b7bff'/%3E%3Cstop offset='1' stop-color='%230b1230'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='400' height='500' fill='url(%23g)'/%3E%3Cg fill='none' stroke='white' stroke-opacity='.55' stroke-width='6'%3E%3Ccircle cx='200' cy='230' r='58'/%3E%3Ccircle cx='200' cy='230' r='24'/%3E%3Crect x='112' y='162' width='176' height='136' rx='16'/%3E%3C/g%3E%3C/svg%3E" alt="Espaço para foto — substitua pela sua imagem"><figcaption class="cap">foto 05 — substitua</figcaption></figure>
+      <figure class="polaroid"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 500'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop stop-color='%23ef6a53'/%3E%3Cstop offset='1' stop-color='%235c0f06'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='400' height='500' fill='url(%23g)'/%3E%3Cg fill='none' stroke='white' stroke-opacity='.55' stroke-width='6'%3E%3Ccircle cx='200' cy='230' r='58'/%3E%3Ccircle cx='200' cy='230' r='24'/%3E%3Crect x='112' y='162' width='176' height='136' rx='16'/%3E%3C/g%3E%3C/svg%3E" alt="Espaço para foto — substitua pela sua imagem"><figcaption class="cap">foto 06 — substitua</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ERAS GRID ============ -->
+<section id="eras">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-eyebrow">02 / O setlist</span>
+      <h2 class="section-title">Sete eras, uma TAY</h2>
+    </div>
+    <p style="max-width:620px; color:var(--silver); font-size:15px; line-height:1.6; margin-top:-6px;">
+      Cada capa abaixo tem um espaço de foto genérico — é só trocar pela imagem real de cada fase da TAY depois. A cor de cada era já vem aplicada por cima, como um encarte de disco.
+    </p>
+
+    <div class="eras-grid">
+      <div class="era-card">
+        <img class="era-photo" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 500'%3E%3Crect width='400' height='500' fill='%23444'/%3E%3Cg fill='none' stroke='white' stroke-opacity='.5' stroke-width='6'%3E%3Ccircle cx='200' cy='230' r='58'/%3E%3Ccircle cx='200' cy='230' r='24'/%3E%3Crect x='112' y='162' width='176' height='136' rx='16'/%3E%3C/g%3E%3C/svg%3E" alt="Foto da era Debut — substitua pela foto real">
+        <div class="era-tint tint-debut"></div><div class="era-scrim"></div>
+        <div class="era-content"><span class="era-index">01</span><div><div class="era-name">Debut</div><div class="era-desc">A origem. Preto e branco, grão de filme, a primeira vez que o mundo viu quem ela seria.</div></div></div>
+      </div>
+      <div class="era-card">
+        <img class="era-photo" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 500'%3E%3Crect width='400' height='500' fill='%23444'/%3E%3Cg fill='none' stroke='white' stroke-opacity='.5' stroke-width='6'%3E%3Ccircle cx='200' cy='230' r='58'/%3E%3Ccircle cx='200' cy='230' r='24'/%3E%3Crect x='112' y='162' width='176' height='136' rx='16'/%3E%3C/g%3E%3C/svg%3E" alt="Foto da era Wonder — substitua pela foto real">
+        <div class="era-tint tint-wonder"></div><div class="era-scrim"></div>
+        <div class="era-content"><span class="era-index">02</span><div><div class="era-name">Wonder</div><div class="era-desc">A era criativa. Cadernos cheios, ideias demais, o mundo visto como matéria-prima.</div></div></div>
+      </div>
+      <div class="era-card">
+        <img class="era-photo" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 500'%3E%3Crect width='400' height='500' fill='%23444'/%3E%3Cg fill='none' stroke='white' stroke-opacity='.5' stroke-width='6'%3E%3Ccircle cx='200' cy='230' r='58'/%3E%3Ccircle cx='200' cy='230' r='24'/%3E%3Crect x='112' y='162' width='176' height='136' rx='16'/%3E%3C/g%3E%3C/svg%3E" alt="Foto da era Renaissance — substitua pela foto real">
+        <div class="era-tint tint-renaissance"></div><div class="era-scrim"></div>
+        <div class="era-content"><span class="era-index">03</span><div><div class="era-name">Renaissance</div><div class="era-desc">Ambição em vermelho. A versão que construiu carreira e conquistas com as próprias mãos.</div></div></div>
+      </div>
+      <div class="era-card">
+        <img class="era-photo" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 500'%3E%3Crect width='400' height='500' fill='%23444'/%3E%3Cg fill='none' stroke='white' stroke-opacity='.5' stroke-width='6'%3E%3Ccircle cx='200' cy='230' r='58'/%3E%3Ccircle cx='200' cy='230' r='24'/%3E%3Crect x='112' y='162' width='176' height='136' rx='16'/%3E%3C/g%3E%3C/svg%3E" alt="Foto da era Golden Hour — substitua pela foto real">
+        <div class="era-tint tint-golden"></div><div class="era-scrim"></div>
+        <div class="era-content"><span class="era-index">04</span><div><div class="era-name">Golden Hour</div><div class="era-desc">A era do amor — por pessoas, por lugares, por si mesma. Luz quente, câmera lenta.</div></div></div>
+      </div>
+      <div class="era-card">
+        <img class="era-photo" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 500'%3E%3Crect width='400' height='500' fill='%23444'/%3E%3Cg fill='none' stroke='white' stroke-opacity='.5' stroke-width='6'%3E%3Ccircle cx='200' cy='230' r='58'/%3E%3Ccircle cx='200' cy='230' r='24'/%3E%3Crect x='112' y='162' width='176' height='136' rx='16'/%3E%3C/g%3E%3C/svg%3E" alt="Foto da era Soft Launch — substitua pela foto real">
+        <div class="era-tint tint-softlaunch"></div><div class="era-scrim"></div>
+        <div class="era-content"><span class="era-index">05</span><div><div class="era-name">Soft Launch</div><div class="era-desc">As amizades. Fotos em grupo, risada alta, os nomes de toda boa memória.</div></div></div>
+      </div>
+      <div class="era-card">
+        <img class="era-photo" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 500'%3E%3Crect width='400' height='500' fill='%23444'/%3E%3Cg fill='none' stroke='white' stroke-opacity='.5' stroke-width='6'%3E%3Ccircle cx='200' cy='230' r='58'/%3E%3Ccircle cx='200' cy='230' r='24'/%3E%3Crect x='112' y='162' width='176' height='136' rx='16'/%3E%3C/g%3E%3C/svg%3E" alt="Foto da era Midnight — substitua pela foto real">
+        <div class="era-tint tint-midnight"></div><div class="era-scrim"></div>
+        <div class="era-content"><span class="era-index">06</span><div><div class="era-name">Midnight</div><div class="era-desc">Os sonhos, as dúvidas, os planos sussurrados de madrugada. A era mais honesta.</div></div></div>
+      </div>
+      <div class="era-card">
+        <img class="era-photo" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 500'%3E%3Crect width='400' height='500' fill='%23444'/%3E%3Cg fill='none' stroke='white' stroke-opacity='.5' stroke-width='6'%3E%3Ccircle cx='200' cy='230' r='58'/%3E%3Ccircle cx='200' cy='230' r='24'/%3E%3Crect x='112' y='162' width='176' height='136' rx='16'/%3E%3C/g%3E%3C/svg%3E" alt="Foto da era 23 — substitua pela foto real">
+        <div class="era-tint tint-23"></div><div class="era-scrim"></div>
+        <div class="era-content"><span class="era-index">07</span><div><div class="era-name">23</div><div class="era-desc">A era atual. Prata, brilhante, em construção — a que celebramos essa noite, ao vivo.</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DRESS CODE ============ -->
+<section id="dresscode">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-eyebrow">03 / O dress code</span>
+      <h2 class="section-title">Escolha um álbum</h2>
+    </div>
+    <p style="max-width:640px; color:var(--silver); font-size:15px; line-height:1.6; margin-top:-6px;">
+      O setlist acima é a história da TAY — mas o dress code é sobre a história da música. Escolha a capa de qualquer álbum que já existiu, de qualquer artista, gênero ou época, e vista essa era. Pode ser fiel ao look original ou só capturar a essência: a paleta, a atitude, o clima daquela capa.
+    </p>
+
+    <div class="dress-grid">
+      <div class="dress-card"><h3>Fiel à capa</h3><p>Recriou o look exatamente como está na capa — roupa, pose, penteado, cor de cabelo? Vale tudo. Quanto mais reconhecível, melhor.</p></div>
+      <div class="dress-card"><h3>A essência da capa</h3><p>Prefere liberdade? Pegue a paleta de cores, o clima, a atitude daquele álbum e monte algo seu a partir disso.</p></div>
+    </div>
+
+    <div style="margin-top:32px; border-top:1px solid var(--line); padding-top:26px;">
+      <div class="row-label" style="margin-bottom:14px;">Se precisar de inspiração</div>
+      <div class="chips">
+        <span class="chip">Thriller</span><span class="chip">Abbey Road</span><span class="chip">Rumours</span><span class="chip">Lemonade</span>
+        <span class="chip">ANTI</span><span class="chip">1989</span><span class="chip">Random Access Memories</span><span class="chip">Blonde</span>
+        <span class="chip">The Dark Side of the Moon</span><span class="chip">... ou qualquer outro</span>
+      </div>
+    </div>
+
+    <div style="margin-top:36px;">
+      <div class="row-label" style="margin-bottom:14px;">Mural de referências — cole aqui as capas escolhidas pelos convidados</div>
+      <div class="mood-grid">
+        <div class="mood-tile"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 300'%3E%3Crect width='300' height='300' fill='%23222'/%3E%3Cg fill='none' stroke='white' stroke-opacity='.4' stroke-width='5'%3E%3Ccircle cx='150' cy='160' r='42'/%3E%3Ccircle cx='150' cy='160' r='18'/%3E%3Crect x='90' y='110' width='120' height='94' rx='12'/%3E%3C/g%3E%3C/svg%3E" alt="Cole aqui uma referência de capa"><span class="lbl">ref. 01</span></div>
+        <div class="mood-tile"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 300'%3E%3Crect width='300' height='300' fill='%23222'/%3E%3Cg fill='none' stroke='white' stroke-opacity='.4' stroke-width='5'%3E%3Ccircle cx='150' cy='160' r='42'/%3E%3Ccircle cx='150' cy='160' r='18'/%3E%3Crect x='90' y='110' width='120' height='94' rx='12'/%3E%3C/g%3E%3C/svg%3E" alt="Cole aqui uma referência de capa"><span class="lbl">ref. 02</span></div>
+        <div class="mood-tile"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 300'%3E%3Crect width='300' height='300' fill='%23222'/%3E%3Cg fill='none' stroke='white' stroke-opacity='.4' stroke-width='5'%3E%3Ccircle cx='150' cy='160' r='42'/%3E%3Ccircle cx='150' cy='160' r='18'/%3E%3Crect x='90' y='110' width='120' height='94' rx='12'/%3E%3C/g%3E%3C/svg%3E" alt="Cole aqui uma referência de capa"><span class="lbl">ref. 03</span></div>
+        <div class="mood-tile"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 300'%3E%3Crect width='300' height='300' fill='%23222'/%3E%3Cg fill='none' stroke='white' stroke-opacity='.4' stroke-width='5'%3E%3Ccircle cx='150' cy='160' r='42'/%3E%3Ccircle cx='150' cy='160' r='18'/%3E%3Crect x='90' y='110' width='120' height='94' rx='12'/%3E%3C/g%3E%3C/svg%3E" alt="Cole aqui uma referência de capa"><span class="lbl">ref. 04</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TICKET / EVENTO ============ -->
+<section id="ingresso">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-eyebrow">04 / Anote aí</span>
+      <h2 class="section-title">O ingresso</h2>
+    </div>
+
+    <div class="ticket">
+      <div class="ticket-main">
+        <div class="ticket-eyebrow">TAY — The Eras · Turnê única</div>
+        <div class="ticket-event">Uma noite. Sete eras. Uma só TAY.</div>
+        <div class="ticket-rows">
+          <div><div class="row-label">Data</div><div class="row-val">14 de novembro de 2026</div></div>
+          <div><div class="row-label">Horário</div><div class="row-val">Portões às 20h</div></div>
+          <div><div class="row-label">Local</div><div class="row-val edit">[inserir endereço da festa]</div></div>
+          <div><div class="row-label">Cidade</div><div class="row-val">Manaus, AM</div></div>
+        </div>
+        <a class="cal-link" id="calLink2" href="#" target="_blank" rel="noopener">+ adicionar ao Google Agenda</a>
+      </div>
+      <div class="ticket-stub">
+        <div><div class="adm">Admissão geral</div><div class="num">GA</div></div>
+        <div><div class="adm">Aniversariante</div><div class="row-val" style="margin-top:4px;">TAY, 23</div></div>
+        <div class="barcode"></div>
+      </div>
+    </div>
+
+    <div class="countdown" id="countdown">
+      <div class="cd-box"><div class="n" id="cd-days">00</div><div class="l">dias</div></div>
+      <div class="cd-box"><div class="n" id="cd-hours">00</div><div class="l">horas</div></div>
+      <div class="cd-box"><div class="n" id="cd-min">00</div><div class="l">minutos</div></div>
+      <div class="cd-box"><div class="n" id="cd-sec">00</div><div class="l">segundos</div></div>
+    </div>
+
+    <div class="checklist">
+      <label class="check-item"><span class="n">01</span><input type="checkbox"><span class="box"></span><span class="txt">Guardar o sábado, 14 de novembro, na agenda</span></label>
+      <label class="check-item"><span class="n">02</span><input type="checkbox"><span class="box"></span><span class="txt">Escolher o álbum que vai vestir</span></label>
+      <label class="check-item"><span class="n">03</span><input type="checkbox"><span class="box"></span><span class="txt">Montar o look da capa escolhida</span></label>
+      <label class="check-item"><span class="n">04</span><input type="checkbox"><span class="box"></span><span class="txt">Confirmar presença aqui embaixo</span></label>
+      <label class="check-item"><span class="n">05</span><input type="checkbox"><span class="box"></span><span class="txt">Aparecer com o coração pronto pra festa</span></label>
+    </div>
+  </div>
+</section>
+
+<!-- ============ RSVP ============ -->
+<section id="rsvp">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-eyebrow">05 / Você vai?</span>
+      <h2 class="section-title">Confirme sua presença</h2>
+    </div>
+
+    <div class="rsvp-panel">
+      <span class="section-eyebrow" style="margin-bottom:0;">Backstage pass</span>
+      <h3 class="serif" style="font-size:clamp(21px,3vw,28px); font-weight:500; margin:14px 0 0; font-style:italic;">Me conta se você vai comemorar os 23 da TAY.</h3>
+
+      <div class="status-row" id="statusRow">
+        <button type="button" class="status-btn active" data-status="Eu vou">Eu vou ✦</button>
+        <button type="button" class="status-btn" data-status="Talvez">Talvez</button>
+        <button type="button" class="status-btn" data-status="Não vou poder">Não vou poder</button>
+      </div>
+
+      <form class="rsvp" id="rsvpForm">
+        <div class="field"><label for="nome">Seu nome</label><input type="text" id="nome" name="nome" placeholder="Como você quer ser chamada(o)" required></div>
+        <div class="field"><label for="acompanhantes">Vai com quantas pessoas?</label><input type="number" id="acompanhantes" name="acompanhantes" min="1" value="1"></div>
+        <div class="field"><label for="era">Qual álbum você vai vestir?</label><input type="text" id="era" name="era" placeholder="Ex: Thriller, Rumours, Lemonade..."></div>
+        <div class="field"><label for="contato">Seu WhatsApp</label><input type="tel" id="contato" name="contato" placeholder="(92) 9xxxx-xxxx"></div>
+        <div class="rsvp-actions">
+          <button type="submit" class="btn">Confirmar</button>
+          <span class="rsvp-note">Ou confirme direto pelo WhatsApp da produção →</span>
+        </div>
+      </form>
+
+      <div class="rsvp-confirm" id="rsvpConfirm">Presença confirmada. Sua era já está reservada no setlist — te vemos em 14.11.2026. ✦</div>
+
+      <div style="margin-top:24px;">
+        <a class="btn pink" href="https://wa.me/5592900000000?text=Oi!%20Quero%20confirmar%20presen%C3%A7a%20na%20TAY%20—%20The%20Eras%20(14.11.2026)" target="_blank" rel="noopener">Confirmar via WhatsApp</a>
+        <span class="rsvp-note" style="display:block; margin-top:10px;">Número de contato de exemplo — substitua pelo WhatsApp real da produção.</span>
+      </div>
+
+      <div class="photo-strip">
+        <div class="photo-strip-track" id="photoStrip"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="fwordmark">TAY — The Eras</div>
+        <p class="fdesc">Uma turnê de uma noite só, sete eras, uma vida inteira de versões dela. 14 de novembro de 2026, Manaus.</p>
+      </div>
+      <div><h4>Ficha técnica</h4><ul><li>Aniversariante — TAY, 23</li><li>Conceito — The Eras</li><li>Direção de arte — [nome aqui]</li></ul></div>
+      <div><h4>Compartilhe</h4><ul><li>#TAYTheErasTour</li><li>#TAYTem23</li></ul></div>
+    </div>
+    <div class="footer-bottom"><span>TAY — The Eras · 2026</span><span>Todas as eras, uma só noite</span></div>
+  </div>
+</footer>
+
+<script>
+  // Countdown to Nov 14, 2026, 20:00 (America/Manaus, UTC-4)
+  const target = new Date("2026-11-14T20:00:00-04:00").getTime();
+  function updateCountdown(){
+    const diff = Math.max(0, target - Date.now());
+    const pad = n => String(n).padStart(2,'0');
+    document.getElementById('cd-days').textContent = pad(Math.floor(diff/(1000*60*60*24)));
+    document.getElementById('cd-hours').textContent = pad(Math.floor((diff/(1000*60*60))%24));
+    document.getElementById('cd-min').textContent = pad(Math.floor((diff/(1000*60))%60));
+    document.getElementById('cd-sec').textContent = pad(Math.floor((diff/1000)%60));
+  }
+  updateCountdown(); setInterval(updateCountdown, 1000);
+
+  // Google Calendar link
+  const calUrl = "https://calendar.google.com/calendar/render?action=TEMPLATE"
+    + "&text=" + encodeURIComponent("TAY — The Eras (Aniversário)")
+    + "&dates=20261114T200000/20261115T000000"
+    + "&details=" + encodeURIComponent("Turnê de aniversário da TAY — 23 anos. Escolha um álbum e vista a era.")
+    + "&location=" + encodeURIComponent("Manaus, AM")
+    + "&ctz=America/Manaus";
+  document.getElementById('calBtn').href = calUrl;
+  document.getElementById('calLink2').href = calUrl;
+
+  // Status buttons
+  const statusRow = document.getElementById('statusRow');
+  let chosenStatus = "Eu vou";
+  statusRow.addEventListener('click', function(e){
+    const btn = e.target.closest('.status-btn');
+    if(!btn) return;
+    statusRow.querySelectorAll('.status-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    chosenStatus = btn.dataset.status;
+  });
+
+  // RSVP form: local confirmation only (no backend in this page)
+  const form = document.getElementById('rsvpForm');
+  const confirmBox = document.getElementById('rsvpConfirm');
+  if(form){
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      confirmBox.textContent = chosenStatus === "Eu vou"
+        ? "Presença confirmada. Sua era já está reservada no setlist — te vemos em 14.11.2026. ✦"
+        : chosenStatus === "Talvez"
+        ? "Anotado como talvez. Se decidir, é só confirmar de novo por aqui ou no WhatsApp. ✦"
+        : "Que pena! Vamos sentir sua falta nessa turnê. ✦";
+      confirmBox.classList.add('show');
+      confirmBox.scrollIntoView({behavior:'smooth', block:'nearest'});
+    });
+  }
+
+  // Photo marquee strip (placeholder tiles, duplicated for seamless loop)
+  const tones = [
+    ['%23d8d5cf','%2377726a'], ['%23a184f2','%233d2270'], ['%23ef6a53','%235c0f06'],
+    ['%23ffd76b','%238a5c07'], ['%23ff9cbc','%2393123f'], ['%235b7bff','%230b1230'], ['%23e8e6e1','%238a857b']
+  ];
+  function buildTile(a,b){
+    const svg = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 380'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop stop-color='"+a+"'/%3E%3Cstop offset='1' stop-color='"+b+"'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='300' height='380' fill='url(%23g)'/%3E%3Cg fill='none' stroke='white' stroke-opacity='.45' stroke-width='5'%3E%3Ccircle cx='150' cy='200' r='44'/%3E%3Ccircle cx='150' cy='200' r='18'/%3E%3Crect x='90' y='150' width='120' height='94' rx='12'/%3E%3C/g%3E%3C/svg%3E";
+    const img = document.createElement('img');
+    img.src = svg; img.alt = "Espaço para foto — substitua pela sua imagem";
+    return img;
+  }
+  const strip = document.getElementById('photoStrip');
+  if(strip){
+    for(let r=0;r<2;r++){
+      tones.forEach(([a,b])=>strip.appendChild(buildTile(a,b)));
+    }
+  }
+</script>
+
+</body>
+</html>
