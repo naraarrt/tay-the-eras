@@ -6,7 +6,7 @@
 <title>TAY — THE ERAS</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,400;1,9..144,500;1,9..144,600&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,400;1,9..144,500;1,9..144,600&family=Space+Grotesk:wght@300;400;500;600;700&family=Truculenta:opsz,wght@12..72,400;12..72,600;12..72,700&family=Vina+Sans&display=swap" rel="stylesheet">
 <style>
   :root{
     --black:#21113f;
@@ -245,6 +245,18 @@
   footer ul{list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:8px; font-size:14px; color:var(--silver);}
   .footer-bottom{margin-top:52px; padding-top:20px; border-top:1px solid var(--line); display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:var(--grey-dim);}
 
+  /* Daydream-inspired art direction: playful editorial type, candy colors, bold frames. */
+  :root{--black:#421e22;--black-2:#57242c;--off:#fff8ed;--grey:#b25d6c;--grey-dim:#82414d;--silver:#f9cee1;--line:rgba(66,30,34,.28);--purple:#a763c8;--red:#fe52ab;--gold:#fba66e;--rose:#fe52ab;--blue:#e986bb;}
+  body{background:var(--off);color:var(--black);font-family:'Truculenta',sans-serif;font-size:18px;}
+  .grain,.scanline{opacity:.07;mix-blend-mode:multiply}.bar{background:var(--off);color:var(--black);border-bottom:3px solid var(--black)}
+  .wordmark{font-family:'Vina Sans',cursive;font-style:normal;font-size:30px}.tag,.kicker-row,.section-eyebrow{color:var(--black);font-weight:700}
+  .hero{min-height:730px;border-bottom:0!important;background:#f8a66f;overflow:hidden}.hero-bg{background:radial-gradient(circle at 18% 22%,#fe52ab 0 11%,transparent 11.3%),radial-gradient(circle at 83% 17%,#ffd1df 0 10%,transparent 10.3%),linear-gradient(135deg,#f8a66f 0 38%,#f9d9e9 38% 62%,#fe52ab 62%);opacity:1}.hero-bg::before,.hero-bg::after{content:'✦';position:absolute;color:#421e22;font:260px/1 'Vina Sans';opacity:.92}.hero-bg::before{left:4%;top:27%}.hero-bg::after{right:6%;bottom:-5%;font-size:210px}
+  .hero-title{font-family:'Vina Sans',cursive;font-size:clamp(94px,17vw,240px);letter-spacing:-.05em;line-height:.74;color:var(--black);text-shadow:5px 5px 0 var(--off)}.hero-title small{font-family:'Truculenta',sans-serif;font-size:.25em;letter-spacing:.05em;text-transform:uppercase}.hero-sub,.hero-sub .line2{color:var(--black);font-family:'Truculenta',sans-serif;font-style:normal;font-weight:600}.hero-date{color:var(--black);font-family:'Vina Sans',cursive}.hero-bottom{border-color:var(--black);color:var(--black)}
+  .btn{border:4px solid var(--gold);background:var(--rose);color:var(--off);font-family:'Truculenta',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.08em;box-shadow:5px 5px 0 var(--black)}.btn.ghost{background:var(--black);color:var(--off);border-color:var(--rose)}.btn.pink{background:var(--rose);color:var(--off)}
+  .marquee{background:var(--black);border:0}.marquee-track span,.marquee-track span.hi{color:var(--off);font-family:'Truculenta',sans-serif;font-style:normal;font-weight:700}
+  section{border-bottom:3px solid var(--black)}.letter,.eras,.rsvp{background:var(--off)}.letter p{color:var(--black)}.letter .sign{color:var(--rose)}h2{font-family:'Vina Sans',cursive;font-size:clamp(54px,8vw,110px)!important;line-height:.86!important;color:var(--black)!important;letter-spacing:-.03em}.polaroid{border:4px solid var(--black);background:#f9cee1;box-shadow:8px 8px 0 var(--rose)}
+  .eras{background:#f9cee1}.era-card{border:4px solid var(--black);border-radius:0}.era-scrim{background:linear-gradient(to top,rgba(66,30,34,.78),rgba(66,30,34,.06))}.dress{background:#f8a66f}.dress-card,.ticket,.rsvp-panel{border:4px solid var(--black);border-radius:0;background:var(--off);box-shadow:8px 8px 0 var(--black)}.dress-card p,.ticket-eyebrow,.row-label,.rsvp-note,.field label{color:var(--black)}.chip{border:3px solid var(--black);color:var(--black);background:#f9cee1}.ticket-stub{background:#fe52ab}.ticket-stub::before,.ticket-stub::after{background:var(--off)}.ticket-stub .adm{color:var(--black)}.ticket-stub .num{background:none;color:var(--black)}.rsvp{background:#f9cee1}.status-btn{border:3px solid var(--black);color:var(--black);border-radius:0;background:var(--off);font-family:'Truculenta',sans-serif;font-weight:700}.status-btn.active{background:var(--rose);color:var(--off);border-color:var(--black)}.field input{color:var(--black);border-color:var(--black)}footer{background:var(--black);color:var(--off)}footer .fdesc,footer h4,footer ul,.footer-bottom{color:var(--silver)}
+  @media(max-width:640px){.hero{min-height:610px}.hero-title{font-size:33vw}.hero-bg::before{font-size:170px}.hero-bg::after{font-size:150px}h2{font-size:62px!important}}
   @media (prefers-reduced-motion: reduce){ *{animation:none !important; transition:none !important;} }
 </style>
 </head>
